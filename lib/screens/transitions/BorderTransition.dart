@@ -6,7 +6,7 @@ class BorderTransition {
 
   BorderTransition(this.callback, this._currentRadius);
 
-  BorderRadius removeBorderRadius()  {
+  void removeBorderRadius()  {
     print("removeBorderRadius called!");
     BorderRadius _newBorderRadius = BorderRadius.only(
       topLeft: Radius.circular(0),
@@ -15,11 +15,19 @@ class BorderTransition {
     callback(_newBorderRadius);
   }
 
-  BorderRadius addBorderRadius()  {
+  void addBorderRadius()  {
     print("addBorderRadius called!");
     BorderRadius _newBorderRadius = BorderRadius.only(
       topLeft: Radius.circular(50),
       topRight: Radius.circular(50),
+    );
+    callback(_newBorderRadius);
+  }
+
+  void transitionBorderRadius(double pos)  {
+    BorderRadius _newBorderRadius = BorderRadius.only(
+      topLeft: Radius.circular(pos*50),
+      topRight: Radius.circular(pos*50),
     );
     callback(_newBorderRadius);
   }

@@ -27,11 +27,8 @@ class _SlideUpPanelState extends State<SlideUpPanel> {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
-        onPanelClosed: (){
-          BorderTransition(callback, _borderRadius).removeBorderRadius();
-        },
-        onPanelOpened: (){
-          BorderTransition(callback, _borderRadius).addBorderRadius();
+        onPanelSlide: (double pos) => {
+          BorderTransition(callback, _borderRadius).transitionBorderRadius(pos)
         },
         maxHeight: MediaQuery.of(context).size.width * 1.30,
         borderRadius: _borderRadius,
