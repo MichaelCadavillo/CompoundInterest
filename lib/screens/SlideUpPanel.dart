@@ -19,7 +19,7 @@ class _SlideUpPanelState extends State<SlideUpPanel> {
       topRight: Radius.circular((_defaultPanelState==PanelState.OPEN)?PanelBorderTransition.maxRadius:PanelBorderTransition.minRadius),
     );
 
-  callback(_borderRadius){
+  callback(_borderRadius) {
     setState(() {
       this._borderRadius = _borderRadius;
     });
@@ -34,17 +34,41 @@ class _SlideUpPanelState extends State<SlideUpPanel> {
         },
         maxHeight: MediaQuery.of(context).size.width * 1.30,
         borderRadius: _borderRadius,
-        panel: Column(children: <Widget>[
-          SizedBox(height: 5),
-          Divider(
-            color: Colors.black12,
-            thickness: 4,
-            indent: 125,
-            endIndent: 125,
+        panel: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 25
           ),
-          SizedBox(height: 50),
-          Text("This is the sliding Widget"),
-        ]),
+          child: Column(children: <Widget>[
+            SizedBox(height: 5),
+            Divider(
+              color: Colors.black12,
+              thickness: 4,
+              indent: 125,
+              endIndent: 125,
+            ),
+            SizedBox(height: 50),
+            Text("This is the sliding Widget"),
+            formField(labelText:"Principal Amount: "),
+            formField(labelText:"Interest Rate P.A.: ", hintText: "In Percentage: x%")
+          ]),
+        ),
         body: Backdrop());
+  }
+
+  TextFormField formField({String labelText, String hintText}){
+    return TextFormField(
+              decoration: InputDecoration(
+                icon: Icon(Icons.bar_chart),
+                hintText: hintText,
+                labelText: labelText,
+              ),
+              onSaved: (String value) {
+                // This optional block of code can be used to run
+                // code when the user saves the form.
+              },
+              validator: (String value) {
+                return value.contains('@') ? 'Do not use the @ char.' : null;
+              },
+            );
   }
 }
