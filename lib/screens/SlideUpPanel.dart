@@ -14,11 +14,11 @@ class SlideUpPanel extends StatefulWidget {
 
 class _SlideUpPanelState extends State<SlideUpPanel> {
   BorderRadius _borderRadius = BorderRadius.only(
-      topLeft: Radius.circular(50),
-      topRight: Radius.circular(50),
-    );
+    topLeft: Radius.circular(50),
+    topRight: Radius.circular(50),
+  );
 
-  callback(_borderRadius){
+  callback(_borderRadius) {
     setState(() {
       this._borderRadius = _borderRadius;
     });
@@ -27,22 +27,46 @@ class _SlideUpPanelState extends State<SlideUpPanel> {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
-        onPanelSlide: (double pos) => {
-          BorderTransition(callback, _borderRadius).transitionBorderRadius(pos)
-        },
+        defaultPanelState: PanelState.OPEN,
+        onPanelSlide: (double pos) =>
+            {BorderTransition(callback).transitionBorderRadius(pos)},
         maxHeight: MediaQuery.of(context).size.width * 1.30,
         borderRadius: _borderRadius,
-        panel: Column(children: <Widget>[
-          SizedBox(height: 5),
-          Divider(
-            color: Colors.black12,
-            thickness: 4,
-            indent: 125,
-            endIndent: 125,
+        panel: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 25
           ),
-          SizedBox(height: 50),
-          Text("This is the sliding Widget"),
-        ]),
+          child: Column(children: <Widget>[
+            SizedBox(height: 5),
+            Divider(
+              color: Colors.black12,
+              thickness: 4,
+              indent: 125,
+              endIndent: 125,
+            ),
+            SizedBox(height: 50),
+            Text("This is the sliding Widget"),
+            formField(labelText:"Principal Amount: "),
+            formField(labelText:"Interest Rate P.A.: ", hintText: "In Percentage: x%")
+          ]),
+        ),
         body: Backdrop());
+  }
+
+  TextFormField formField({String labelText, String hintText}){
+    return TextFormField(
+              decoration: InputDecoration(
+                icon: Icon(Icons.bar_chart),
+                hintText: hintText,
+                labelText: labelText,
+              ),
+              onSaved: (String value) {
+                // This optional block of code can be used to run
+                // code when the user saves the form.
+              },
+              validator: (String value) {
+                return value.contains('@') ? 'Do not use the @ char.' : null;
+              },
+            );
   }
 }

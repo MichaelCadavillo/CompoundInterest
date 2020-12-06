@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BorderTransition {
-  BorderRadius _currentRadius;
   Function(void) callback;
 
-  BorderTransition(this.callback, this._currentRadius);
+  BorderTransition(this.callback);
 
   void removeBorderRadius()  {
     print("removeBorderRadius called!");
@@ -26,8 +25,8 @@ class BorderTransition {
 
   void transitionBorderRadius(double pos)  {
     BorderRadius _newBorderRadius = BorderRadius.only(
-      topLeft: Radius.circular(pos*50),
-      topRight: Radius.circular(pos*50),
+      topLeft: Radius.circular((pos==0)?10:pos*50),
+      topRight: Radius.circular((pos==0)?10:pos*50),
     );
     callback(_newBorderRadius);
   }
