@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PanelBorderTransition {
-  BorderRadius _currentRadius;
   static final double minRadius = 15;
   static final double maxRadius = 45;
   Function(void) callback;
 
-  PanelBorderTransition(this.callback, [this._currentRadius]);
+  PanelBorderTransition(this.callback);
 
-  void removeBorderRadius()  {
+  void minimizeBorderRadius()  {
     print("removeBorderRadius called!");
     BorderRadius _newBorderRadius = BorderRadius.only(
-      topLeft: Radius.circular(0),
-      topRight: Radius.circular(0),
+      topLeft: Radius.circular(minRadius),
+      topRight: Radius.circular(minRadius),
     );
     callback(_newBorderRadius);
   }

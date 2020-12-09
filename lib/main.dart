@@ -29,6 +29,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static double fabVisibility = 1.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         backgroundColor: Colors.blue,
-        body: SlideUpPanel(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.adb),
-          onPressed: () {
-          },
-        ));
+        body: SlideUpPanel(notifyParent: callback),
+        floatingActionButton: (_MyHomePageState.fabVisibility != 0)? CalculateFAB(fabVisibility : _MyHomePageState.fabVisibility) : Container()
+    );
   }
-  
+
+  callback(double pos){
+    setState(() {
+      _MyHomePageState.fabVisibility = pos;
+    });
+  }
 }
