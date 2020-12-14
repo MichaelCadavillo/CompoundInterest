@@ -1,3 +1,4 @@
+import 'package:compounding_interest/screens/library.dart';
 import 'package:flutter/material.dart';
 
 Form formField(
@@ -52,4 +53,20 @@ Form percentFormField(
       },
     ),
   );
+}
+
+calculateButton(widget, BuildContext context) {
+  final _initialAmount = widget.keyList["initialAmount"];
+  final _interestRate = widget.keyList["interestRate"];
+  final _interestRateDropdown = widget.keyList["interestRateDropdown"];
+  final _duration = widget.keyList["duration"];
+
+  if (_initialAmount.currentState.validate() &&
+      _interestRate.currentState.validate() &&
+      _interestRateDropdown.currentState.validate() &&
+      _duration.currentState.validate()) {
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text('Processing Data')));
+  }
+  return null;
 }

@@ -128,18 +128,7 @@ class _CalculateFABState extends State<CalculateFAB> {
       child: FloatingActionButton.extended(
         label: Text("Calculate", overflow: TextOverflow.clip, maxLines: 1),
         //onPressed: calculateFABOnPressed(),
-        onPressed: () {
-          final _initialAmount = widget.keyList["initialAmount"];
-          final _interestRate = widget.keyList["interestRate"];
-          final _interestRateDropdown = widget.keyList["interestRateDropdown"];
-          final _duration = widget.keyList["duration"];
-
-          if (_initialAmount.currentState.validate() && _interestRate.currentState.validate() && _interestRateDropdown.currentState.validate() && _duration.currentState.validate()) {
-            Scaffold.of(context)
-                .showSnackBar(SnackBar(content: Text('Processing Data')));
-          }
-          return null;
-        },
+        onPressed: () => calculateButton(widget, context),
       ),
     );
   }
