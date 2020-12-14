@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/SlideUpPanel.dart';
+import 'screens/slide_up_panel.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
@@ -30,9 +30,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static double fabVisibility = 1.0;
+  final _initialAmountKey = GlobalKey<FormState>();
+  final _interestRateKey = GlobalKey<FormState>();
+  final _interestRateDropdownKey = GlobalKey<FormState>();
+  final _durationKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final _keyList = {
+      "initialAmount" : _initialAmountKey, 
+      "interestRate" : _interestRateKey, 
+      "interestRateDropdown" : _interestRateDropdownKey, 
+      "duration" : _durationKey
+    };
+
     return Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -53,8 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         backgroundColor: Colors.blue,
-        body: SlideUpPanel(notifyParent: callback),
-        floatingActionButton: (_MyHomePageState.fabVisibility != 0)? CalculateFAB(fabVisibility : _MyHomePageState.fabVisibility) : Container()
+        body: SlideUpPanel(notifyParent: callback, keyList: _keyList),
+        floatingActionButton: (_MyHomePageState.fabVisibility != 0)? CalculateFAB(keyList: _keyList, fabVisibility : _MyHomePageState.fabVisibility) : Container()
     );
   }
 
